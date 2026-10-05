@@ -1,4 +1,196 @@
-der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e); box-shadow: 0 4px 15px rgba(240, 185, 11, 0.15); }
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة MK980 للتحديد الكمي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b0e14;
+            --bg-card: #182232;
+            --accent: #f0b90b;
+            --text-main: #ffffff;
+            --text-sec: #848e9c;
+            --border: #232d3f;
+            --green: #0ecb81;
+            --red: #f6465d;
+            --blue-verified: #1da1f2;
+            --telegram: #0088cc;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); min-height: 100vh; padding-bottom: 70px; }
+        
+        .main-container { max-width: 480px; margin: 0 auto; padding: 20px; }
+        .card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 15px; }
+        
+        .top-app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 5px 0;
+        }
+
+        .brand-header-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .brand-logo-container {
+            width: 40px;
+            height: 40px;
+            background: #121824;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(240, 185, 11, 0.2);
+        }
+        .brand-logo-container img { width: 100%; height: 100%; object-fit: cover; }
+        .brand-info { display: flex; flex-direction: column; }
+        .brand-title { font-size: 1rem; font-weight: bold; color: var(--accent); letter-spacing: 0.5px; line-height: 1.1; }
+        .brand-subtitle { font-size: 0.6rem; color: var(--text-sec); }
+
+        .user-top-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            background: #121824;
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 12px;
+        }
+        .user-profile-row { display: flex; align-items: center; gap: 6px; }
+        .user-name-tag { font-size: 0.8rem; font-weight: bold; color: #fff; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .verified-icon { color: var(--blue-verified); font-size: 0.85rem; }
+        
+        .user-actions-row { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+        .mini-action-btn {
+            background: #232d3f; border: none; color: var(--text-sec); font-size: 0.65rem; padding: 2px 6px; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s;
+        }
+        .mini-action-btn:hover { background: var(--accent); color: #000; }
+
+        .floating-telegram {
+            position: fixed;
+            bottom: 85px;
+            left: 20px;
+            background-color: var(--telegram);
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+            z-index: 998;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            text-decoration: none;
+        }
+        .floating-telegram:hover {
+            transform: scale(1.1);
+            background-color: #0077b5;
+        }
+
+        .floating-telegram-second {
+            position: fixed;
+            bottom: 145px;
+            left: 20px;
+            background-color: #0088cc;
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.4);
+            z-index: 998;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            text-decoration: none;
+        }
+        .floating-telegram-second:hover {
+            transform: scale(1.1);
+            background-color: #0077b5;
+        }
+
+        .financial-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 15px; }
+        .stat-box {
+            background: #121824; border: 1px solid var(--border); border-radius: 12px; padding: 15px; text-align: right; position: relative; overflow: hidden;
+        }
+        .stat-box::after { content: ''; position: absolute; top: 0; right: 0; width: 3px; height: 100%; background: var(--accent); }
+        .stat-box.green-accent::after { background: var(--green); }
+        .stat-box.blue-accent::after { background: var(--blue-verified); }
+        .stat-box.red-accent::after { background: var(--red); }
+        
+        .stat-title { font-size: 0.75rem; color: var(--text-sec); margin-bottom: 5px; display: flex; align-items: center; justify-content: space-between; }
+        .stat-value { font-size: 1.25rem; font-weight: bold; color: #fff; }
+
+        .mid-buttons-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px; }
+        .btn-mid {
+            padding: 10px 5px; border-radius: 10px; font-size: 0.8rem; font-weight: bold; cursor: pointer; border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.2s;
+        }
+        .btn-mid i { font-size: 1rem; }
+        .btn-deposit-action { background: #123524; color: var(--green); border-color: rgba(14, 203, 129, 0.3); }
+        .btn-withdraw-action { background: #351218; color: var(--red); border-color: rgba(246, 70, 93, 0.3); }
+        .btn-details-action { background: #122135; color: var(--blue-verified); border-color: rgba(29, 161, 242, 0.3); }
+        .btn-mid:hover { opacity: 0.85; transform: translateY(-2px); }
+
+        .crypto-prices-container { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; margin-top: 15px; scrollbar-width: none; }
+        .crypto-prices-container::-webkit-scrollbar { display: none; }
+        .crypto-price-card {
+            background: #121824; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; min-width: 125px; flex-shrink: 0; display: flex; flex-direction: column; gap: 4px;
+        }
+        .crypto-header { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: bold; color: var(--text-sec); }
+        .crypto-header img { width: 16px; height: 16px; border-radius: 50%; }
+        .crypto-val { font-size: 0.9rem; font-weight: bold; color: #fff; }
+        .crypto-change { font-size: 0.65rem; font-weight: bold; }
+
+        .network-option-card {
+            background: #121824; border: 1px solid var(--border); border-radius: 10px; padding: 12px 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;
+        }
+        .network-option-card:hover { border-color: var(--accent); background: #1a2332; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: var(--text-sec); font-size: 0.85rem; }
+        .form-control { width: 100%; padding: 12px; background: #121824; border: 1px solid var(--border); border-radius: 8px; color: #fff; outline: none; font-size: 0.9rem; direction: ltr; text-align: left; }
+        .form-control:focus { border-color: var(--accent); }
+        
+        .btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+        .btn-primary { background-color: var(--accent); color: #000; }
+        .btn-success { background-color: var(--green); color: #fff; }
+        .btn-danger { background-color: var(--red); color: #fff; }
+        .btn-block { width: 100%; }
+        .btn:hover { opacity: 0.9; }
+
+        .withdraw-ticker {
+            background: #121824; border: 1px solid var(--border); border-radius: 10px; padding: 10px 15px; font-size: 0.85rem; color: var(--text-sec); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; overflow: hidden; white-space: nowrap;
+        }
+        .ticker-content { display: inline-block; animation: marquee 15s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        .quant-hero {
+            background: linear-gradient(135deg, #121824, #1e293b); border: 1px solid var(--border); border-radius: 16px; padding: 25px 20px; text-align: center; margin-bottom: 15px;
+        }
+        .quant-circle {
+            width: 120px; height: 120px; border-radius: 50%; background: rgba(240, 185, 11, 0.1); border: 3px solid var(--accent); display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0 auto 15px auto; box-shadow: 0 0 20px rgba(240, 185, 11, 0.2);
+        }
+        .quant-circle i { font-size: 2.2rem; color: var(--accent); margin-bottom: 5px; }
+
+        .vip-card-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 15px; }
+        .vip-tier-box {
+            background: #121824; border: 1px solid var(--border); border-radius: 14px; padding: 16px; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 10px; transition: 0.2s;
+        }
+        .vip-tier-box::before { content: ''; position: absolute; top: 0; right: 0; width: 4px; height: 100%; background: var(--accent); }
+        .vip-tier-box.active-vip { border-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e); box-shadow: 0 4px 15px rgba(240, 185, 11, 0.15); }
         .vip-header-row { display: flex; justify-content: space-between; align-items: center; }
         .vip-title-badge { display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 1rem; color: var(--accent); }
         .vip-price-tag { background: rgba(240, 185, 11, 0.1); color: var(--accent); padding: 4px 10px; border-radius: 8px; font-size: 0.85rem; font-weight: bold; }
@@ -90,11 +282,11 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
 </head>
 <body>
 
-    <a href="https://t.me/boost/Tywjofwkjbqd" target="_blank" class="floating-telegram-second" title="قناة التليجرام الرسمية">
+    <a href="https://t.me/Tywjofwkjbqd" target="_blank" class="floating-telegram" title="قناة التليجرام الرسمية">
         <i class="fab fa-telegram"></i>
     </a>
 
-    <a href="https://t.me/YourTelegramUsername" target="_blank" class="floating-telegram" title="خدمة العملاء تيليجرام">
+    <a href="https://t.me/Tywjofwkjbqd" target="_blank" class="floating-telegram" title="خدمة العملاء تيليجرام">
         <i class="fab fa-telegram-plane"></i>
     </a>
 
@@ -104,9 +296,9 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
         <div id="authScreen" class="card" style="margin-top: 20px;">
             <div style="text-align: center; margin-bottom: 20px;">
                 <div class="brand-logo-container" style="width: 65px; height: 65px; margin: 0 auto 10px auto;">
-                    <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="MK980 Logo">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="NAPLEON90 Logo">
                 </div>
-                <h2 style="color: var(--accent);">MK980</h2>
+                <h2 style="color: var(--accent);"> MK980</h2>
             </div>
             
             <div id="loginForm">
@@ -130,7 +322,7 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
             <div class="top-app-header">
                 <div class="brand-header-top">
                     <div class="brand-logo-container">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="MK980 Logo">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1055/1055687.png" alt="NAPOLE90 Logo">
                     </div>
                     <div class="brand-info">
                         <div class="brand-title">MK980</div>
@@ -161,7 +353,7 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
             <div class="withdraw-ticker">
                 <i class="fas fa-bullhorn text-accent"></i>
                 <div style="overflow: hidden; width: 100%;">
-                    <span class="ticker-content">تم سحب 150 USDT بنجاح • تم إيداع 50 USDT بنجاح • تم سحب 300 USDT بنجاح</span>
+                    <span class="ticker-content">تم سحب 50 USDT بنجاح • تم إيداع 50 USDT بنجاح • تم سحب 30 USDT بنجاح</span>
                 </div>
             </div>
 
@@ -178,7 +370,7 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
                             <div class="stat-value" id="totalAssets">0.00</div>
                         </div>
                         <div class="stat-box green-accent">
-                            <div class="stat-title">الحساب الكمي <i class="fas fa-robot text-success"></i></div>
+                            <div class="stat-title">حساب التحديد الكمي  <i class="fas fa-robot text-success"></i></div>
                             <div class="stat-value" id="quantAccount">0.00</div>
                         </div>
                         <div class="stat-box blue-accent">
@@ -228,18 +420,18 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
                 </div>
             </div>
 
-            <!-- الصفحة 2: التحديد الكمي -->
+            <!-- الصفحة 2: التعدين -->
             <div id="tabQuant" class="tab-content hidden">
                 <div class="quant-hero">
                     <div class="quant-circle">
                         <i class="fas fa-robot"></i>
                     </div>
                     <h3 style="margin-bottom: 5px;">روبوت التحديد الكمي الذكي</h3>
-                    <p style="font-size: 0.8rem; color: var(--text-sec); margin-bottom: 20px;">قم بتشغيل التحديد الكمي اليومي الخاص بك وحقق أرباحاً تلقائية كل 24 ساعة.</p>
+                    <p style="font-size: 0.8rem; color: var(--text-sec); margin-bottom: 20px;">قم بتشغيل التعدين اليومي الخاص بك وحقق أرباحاً تلقائية كل 24 ساعة.</p>
                     
                     <div id="quantActiveContainer">
                         <button id="startQuantBtn" class="btn btn-primary btn-block" onclick="startQuantitativeTask()">
-                            <i class="fas fa-play"></i> بدء التحديد الكمي (كل 24 ساعة)
+                            <i class="fas fa-play"></i> بدء التحديد الكمي(كل 24 ساعة)
                         </button>
                     </div>
                     
@@ -253,7 +445,7 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
                     <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 10px; color: var(--accent);"><i class="fas fa-info-circle"></i> تعليمات التحديد</div>
                     <ul style="font-size: 0.75rem; color: var(--text-sec); padding-right: 20px; line-height: 1.6;">
                         <li>تتم دورة التحديد الكمي مرة واحدة كل 24 ساعة لكل مستخدم نشط.</li>
-                        <li>يتم احتساب الأرباح بنسبة مئوية تلقائية بناءً على رصيد الحساب الكمي ومستوى الـ VIP الخاص بك.</li>
+                        <li>يتم احتساب الأرباح بنسبة مئوية تلقائية بناءً على رصيد حساب التحديد الكمي ومستوى الـ VIP الخاص بك.</li>
                     </ul>
                 </div>
             </div>
@@ -400,7 +592,7 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
                         <div class="profile-val text-accent" id="profileVipVal">VIP 1</div>
                     </div>
                     <div class="profile-info-row">
-                        <div class="profile-label"><i class="fas fa-wallet text-success"></i> الحساب الكمي المتاح</div>
+                        <div class="profile-label"><i class="fas fa-wallet text-success"></i> حساب التحديد الكمي المتاح</div>
                         <div class="profile-val text-success" id="profileBalanceVal">0.00 USDT</div>
                     </div>
                     <div class="profile-info-row">
@@ -411,22 +603,6 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
                         <div class="profile-label"><i class="fas fa-arrow-down text-danger"></i> إجمالي الإيداعات</div>
                         <div class="profile-val text-danger" id="profileRechargeVal">0.00 USDT</div>
                     </div>
-                </div>
-
-                <!-- زر تحميل التطبيق المضاف حديثاً -->
-                <div class="card" style="text-align: center; background: linear-gradient(135deg, #121824, #1a2332);">
-                    <div style="font-size: 0.9rem; font-weight: bold; margin-bottom: 8px; color: var(--accent);">
-                        <i class="fas fa-mobile-screen-button"></i> تطبيق المنصة للأندرويد
-                    </div>
-                    <p style="font-size: 0.75rem; color: var(--text-sec); margin-bottom: 12px;">قم بتحميل تطبيق المنصة على هاتفك للوصول السريع وبدون متصفح.</p>
-                    
-                    <a href="app-release.apk" class="btn btn-primary btn-block" download style="text-decoration: none; margin-bottom: 8px;">
-                        <i class="fas fa-download"></i> تحميل تطبيق المنصة (APK)
-                    </a>
-                    
-                    <button id="installAppBtn" class="btn btn-success btn-block hidden" style="background-color: #0e8cb8;">
-                        <i class="fas fa-plus-circle"></i> تثبيت التطبيق على الشاشة الرئيسية
-                    </button>
                 </div>
 
                 <div style="margin-top: 20px;">
@@ -442,7 +618,7 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
     <!-- شريط التنقل السفلي -->
     <div id="bottomNav" class="bottom-nav hidden">
         <button class="nav-item active" onclick="switchTab(0, this)"><i class="fas fa-home"></i>الرئيسية</button>
-        <button class="nav-item" onclick="switchTab(1, this)"><i class="fas fa-robot"></i>التحديد</button>
+        <button class="nav-item" onclick="switchTab(1, this)"><i class="fas fa-robot"></i>التحديدالكمي</button>
         <button class="nav-item" onclick="switchTab(2, this)"><i class="fas fa-crown"></i>VIP</button>
         <button class="nav-item" onclick="switchTab(3, this)"><i class="fas fa-users"></i>الفريق</button>
         <button class="nav-item" onclick="switchTab(4, this)"><i class="fas fa-user"></i>الملف</button>
@@ -613,31 +789,10 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
         let currentSelectedWdNetwork = 'TRC20';
         let timerInterval = null;
 
-        let deferredPrompt;
-        const installBtn = document.getElementById('installAppBtn');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            if(installBtn) installBtn.classList.remove('hidden');
-        });
-
-        if(installBtn) {
-            installBtn.addEventListener('click', () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    deferredPrompt.userChoice.then((choiceResult) => {
-                        deferredPrompt = null;
-                        installBtn.classList.add('hidden');
-                    });
-                }
-            });
-        }
-
         const networkAddresses = {
-            'TRC20': 'TK7HeeJjZ2rFoT4kb5gHWYoFcYTjtW5Hj3',
-            'BEP20': '0x644056F7C23C7B4b22579cB2dF4fe7d1b25e301c',
-            'ERC20': '0x644056F7C23C7B4b22579cB2dF4fe7d1b25e301c'
+            'TRC20': 'TBBazvxfMw44Y4cg7S731c8gZQjP6bW7Ru',
+            'BEP20': '0x0D4f7aeBCB66Ad8e8A2889C4E32c133234dAA32B',
+            'ERC20': '0x0D4f7aeBCB66Ad8e8A2889C4E32c133234dAA32B'
         };
 
         const vipRates = { 1: 0.20, 2: 0.216, 3: 0.23, 4: 0.245, 5: 0.26, 6: 0.28, 7: 0.30 };
@@ -663,7 +818,7 @@ der-color: var(--accent); background: linear-gradient(135deg, #121824, #1f2b3e);
                     recharge: 0.0,
                     lastQuantTime: 0,
                     vip: 1,
-                    refCode: "MK" + Math.floor(100000 + Math.random() * 900000),
+                    refCode: "MK980" + Math.floor(100000 + Math.random() * 900000),
                     refLink: "",
                     invitedBy: null
                 };
